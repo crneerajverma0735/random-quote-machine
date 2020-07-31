@@ -1,0 +1,3 @@
+export const QUOTE_REQUESTED = "QUOTE_REQUESTED";
+export const QUOTE_RECEIVED = "QUOTE_RECEIVED";
+export const QUOTE_FAILED = "QUOTE_FAILED";

@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Box from './components/Box';
+import { connect } from "react-redux";
 
-function App() {
+function App({ color, quotes }) {
+
+  let [random, setRandom] = useState(0);
+  let [bgColor, setBgColor] = useState("red");
+  useEffect(() => {
+    random = Math.floor(Math.random() * color.length);
+    setBgColor(color[random]);
+  }, [color])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="containerFluid main d-flex flex-column align-content-center justify-content-center" style={{ "background": bgColor }}>
+      <div className="row">
+        <div className="col-6 p-5 rounded-lg mx-auto box" style={{ "background": "white" }}>
+          <Box color={bgColor} setCol={setBgColor} />
+        </div>
+      </div>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    color: state.color,
+    quotes: state.quotes
+  }
+}
+
+
+export default connect(mapStateToProps, null)(App);
